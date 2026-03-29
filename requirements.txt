@@ -1,0 +1,19 @@
+# Core Data Science
+pandas
+numpy<2.0.0
+scikit-learn
+
+# RL Framework
+gymnasium
+stable-baselines3
+shimmy
+
+# API & Server
+fastapi
+uvicorn
+pydantic
+httpx
+
+# Hackathon Requirements
+openai>=1.0.0
+openenv-core

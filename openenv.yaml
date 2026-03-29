@@ -1,0 +1,19 @@
+version: "1.0"
+name: "Feature-Engineer-RL"
+description: "An environment for automated feature engineering on tabular data."
+tasks:
+  - id: "easy"
+    difficulty: "easy"
+    target_score: 0.8
+  - id: "medium"
+    difficulty: "medium"
+    target_score: 0.7
+  - id: "hard"
+    difficulty: "hard"
+    target_score: 0.6
+action_space:
+  type: "discrete"
+  description: "Impute missing values or drop columns."
+observation_space:
+  type: "json"
+  description: "Column metadata including dtypes and missing percentages."

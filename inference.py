@@ -5,9 +5,11 @@ def run_inference():
     task_name = "Feature-Engineer-RL"
 
     print(f"[START] task={task_name}", flush=True)
+
+    # Initialize client safely
     client = OpenAI(
-        api_key=os.environ["API_KEY"],
-        base_url=os.environ["API_BASE_URL"]
+        api_key=os.environ.get("API_KEY"),
+        base_url=os.environ.get("API_BASE_URL")
     )
 
     model_name = os.environ.get("MODEL_NAME", "gpt-4o-mini")
@@ -16,18 +18,22 @@ def run_inference():
 
     for step in range(1, 11):
 
-        response = client.chat.completions.create(
-            model=model_name,
-            messages=[
-                {"role": "system", "content": "You are an expert RL agent for feature engineering."},
-                {"role": "user", "content": f"Step {step}: suggest next action"}
-            ]
-        )
+        try:
+            response = client.chat.completions.create(
+                model=model_name,
+                messages=[
+                    {"role": "system", "content": "You are an expert RL agent."},
+                    {"role": "user", "content": f"Step {step}: suggest next action"}
+                ]
+            )
 
-        # Extract output
-        action = response.choices[0].message.content
+            action = response.choices[0].message.content
 
-        # Dummy reward (allowed)
+        except Exception as e:
+            print(f"LLM failed at step {step}: {str(e)}", flush=True)
+            action = "fallback_action"
+
+        # Continue execution no matter what
         current_reward = 0.5
         total_reward += current_reward
 

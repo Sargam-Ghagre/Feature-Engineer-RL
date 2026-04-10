@@ -5,8 +5,6 @@ def run_inference():
     task_name = "Feature-Engineer-RL"
 
     print(f"[START] task={task_name}", flush=True)
-
-    # ✅ Use ALL required env variables
     client = OpenAI(
         api_key=os.environ["API_KEY"],
         base_url=os.environ["API_BASE_URL"]
@@ -18,7 +16,6 @@ def run_inference():
 
     for step in range(1, 11):
 
-        # 🔥 THIS IS THE MOST IMPORTANT LINE
         response = client.chat.completions.create(
             model=model_name,
             messages=[
